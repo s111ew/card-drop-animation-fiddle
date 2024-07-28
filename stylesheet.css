@@ -8,17 +8,29 @@ body {
     margin: 0;
 }
 
+header {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.input-container {
+  position: absolute;
+}
+
+.grid-container {
+  gap: 10px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 270px);
+  grid-template-rows: repeat(2, 1fr);
+}
+
 .card {
     border: 1px solid black;
     width: 270px;
     height: 360px;
     position: absolute;
     background-color: #fff;
-}
-
-header {
-    text-align: center;
-    margin-top: 20px;
 }
 
 #one {
@@ -42,6 +54,22 @@ header {
   }
   100% {
     transform: scale(0.75) translate(-270px, -250px) rotate(9deg);
+    box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.05);
+  }
+}
+
+.one-animation-to-grid {
+  animation: grid-one 2s forwards;
+}
+
+@keyframes grid-one {
+  0% {
+    transform: scale(0.75);
+    box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.05);
+  }
+  100% {
+    position: static;
+    transform: scale(0.75);
     box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.05);
   }
 }

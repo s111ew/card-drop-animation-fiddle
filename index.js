@@ -1,5 +1,7 @@
 var PADDING = 10;
 
+const cards = document.querySelectorAll(".card");
+
 var rect;
 var viewport = {
   bottom: 0,
@@ -9,7 +11,6 @@ var viewport = {
 }
 
 function positionCards() {
-    let cards = document.querySelectorAll(".card");
     let width = window.innerWidth;
     let height = window.innerHeight;
     cards.forEach(card => {
@@ -19,6 +20,14 @@ function positionCards() {
         card.style.top = (height / 2 - cardHeight / 2) + 'px';
     });
     addDragEventListeners();
+}
+
+function cardToTop () {
+    cards.forEach(card => {
+        card.addEventListener("mousedown", () => {
+            card.style.zIndex = +card.style.zIndex + 7
+        })
+    })
 }
 
 function dragElement(elmnt) {
@@ -69,11 +78,10 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
   }
+  cardToTop();
 }
 
 function addDragEventListeners () {
-    let cards = document.querySelectorAll(".card");
-
     cards.forEach(card => {
         card.addEventListener("click", () => {
             cards.forEach(card => {
@@ -84,5 +92,17 @@ function addDragEventListeners () {
     });
 };
 
-window.onload = positionCards();
+function cardsToGrid () {
+    cards.forEach((card) => {
+        card.classList.add(`${card.id}-animation-to-grid`)
+        card.classList.remove(`${card.id}-animation`);
+    })
+}
+
+function addGridEventListener () {
+    let checkbox = document.querySelector("#resetCheckbox");
+    checkbox.addEventListener("change", cardsToGrid)
+}
+
+window.onload = positionCards(), addGridEventListener();
 
