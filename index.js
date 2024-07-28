@@ -22,13 +22,23 @@ function positionCards() {
     addDragEventListeners();
 }
 
-function cardToTop () {
+function cardToTop() {
+    function bringToTop(event) {
+        let highestZIndex = 0;
+        cards.forEach(card => {
+            const zIndex = parseInt(window.getComputedStyle(card).zIndex);
+            if (zIndex > highestZIndex) {
+                highestZIndex = zIndex;
+            }
+        });
+        event.target.style.zIndex = highestZIndex + 1;
+    }
+
+    const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
-        card.addEventListener("mousedown", () => {
-            card.style.zIndex = +card.style.zIndex + 7
-        })
-    })
-}
+        card.addEventListener('mousedown', bringToTop);
+    });
+};
 
 function dragElement(elmnt) {
 
@@ -94,8 +104,9 @@ function addDragEventListeners () {
 
 function cardsToGrid () {
     cards.forEach((card) => {
-        card.classList.add(`${card.id}-animation-to-grid`)
         card.classList.remove(`${card.id}-animation`);
+        card.style.position = "static";
+        card.style.transform = '';
     })
 }
 
